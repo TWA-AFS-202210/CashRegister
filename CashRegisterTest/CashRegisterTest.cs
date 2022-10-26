@@ -16,6 +16,7 @@ namespace CashRegisterTest
 			cashRegister.Process(purchase);
 			//then
 			Assert.True(printer.HasPrinted);
+			Assert.Equal(purchase.AsString(), printer.ContentPrinted);
 		}
 	}
 }
