@@ -11,11 +11,12 @@ namespace CashRegisterTest
 			//given
 			SpyPrinter printer = new SpyPrinter();
 			var cashRegister = new CashRegister(printer);
-			var purchase = new Purchase();
+			var stubPurchase = new StubPurchase();
 			//when
-			cashRegister.Process(purchase);
+			cashRegister.Process(stubPurchase);
 			//then
 			Assert.True(printer.HasPrinted);
+			Assert.Equal("stub content", printer.PrintContent);
 		}
 	}
 }
