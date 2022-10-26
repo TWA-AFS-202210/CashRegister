@@ -1,3 +1,5 @@
+using Moq;
+
 namespace CashRegisterTest
 {
 	using CashRegister;
@@ -9,14 +11,13 @@ namespace CashRegisterTest
 		public void Should_process_execute_printing()
 		{
 			//given
-			SpyPrinter printer = new SpyPrinter();
-			var cashRegister = new CashRegister(printer);
+			Mock<Printer> printer = new Mock<Printer>();
+			var cashRegister = new CashRegister(printer.Object);
 			var stubPurchase = new StubPurchase();
 			//when
 			cashRegister.Process(stubPurchase);
 			//then
-			Assert.True(printer.HasPrinted);
-			Assert.Equal("stub content", printer.ContentPrinted);
+			printer.Verify(_ => _.Print(It.IsAny<string>()));
 		}
 
 		[Fact]
