@@ -13,11 +13,12 @@ namespace CashRegisterTest
 			//given
 			Mock<Printer> printer = new Mock<Printer>();
 			var cashRegister = new CashRegister(printer.Object);
-			var stubPurchase = new StubPurchase();
+			Mock<Purchase> stubPurchase = new Mock<Purchase>();
+			stubPurchase.Setup(_ => _.AsString()).Returns("Moq stub content");
 			//when
-			cashRegister.Process(stubPurchase);
+			cashRegister.Process(stubPurchase.Object);
 			//then
-			printer.Verify(_ => _.Print(It.IsAny<string>()));
+			printer.Verify(_ => _.Print("Moq stub content"));
 		}
 
 		[Fact]
